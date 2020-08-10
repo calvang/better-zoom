@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import VideoGrid from './components/VideoGrid';
+import WebRTC from './components/WebRTC';
 import './css/App.css';
 import './css/index.css';
 import * as serviceWorker from './serviceWorker';
 
 const Main = () =>
-  <div className="w3-container w3-black">
-    <VideoGrid />
-  </div>;
+  <>
+    {/* <h1 className="page-header w3-jumbo">Better Zoom</h1> */}
+    <WebRTC />
+  </>;
 
 ReactDOM.render(
     <Main />,
