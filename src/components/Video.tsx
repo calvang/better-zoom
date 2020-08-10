@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import '../css/App.css';
 
 interface VideoProps { 
   mediaStream: any
@@ -7,7 +7,7 @@ interface VideoProps {
 
 interface VideoState {}
 
-export default class Video extends PureComponent<VideoProps, VideoState> {
+export default class Video extends Component<VideoProps, VideoState> {
   addMediaStream = (video: any) => {
     const { mediaStream } = this.props;
     // Prevents throwing error upon a setState change when mediaStream is null

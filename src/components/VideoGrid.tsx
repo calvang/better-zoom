@@ -2,28 +2,27 @@ import React, { Component } from 'react';
 import Video from './Video';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
-import './App.css';
+import '../css/App.css';
 
 interface VideoGridProps { }
 interface VideoGridState {
-  videoGrid: any[]
+  videoGrid: any
 }
 
+//const ROOM_ID = window.ROOM_ID; //"<%= roomId%>";
 const ROOM_ID = "<%= roomId%>"
 
 export default class VideoGrid extends Component<VideoGridProps, VideoGridState> {
   socket: any;
-  //videoGrid: any[] = [];
   myPeer = new Peer(undefined, {
-      host: 'localhost',
-      port: 3001
-  })
-  myVideo: any;
-  peers: any = {}
+    host: 'localhost',
+    port: 3001
+  });
+  peers: any = {};
   constructor(props: VideoGridProps) {
     super(props);
-    this.socket = io.connect('localhost:5000')
-    this.state = { videoGrid: [] };
+    this.socket = io.connect('localhost:5000');
+    this.state = { videoGrid: {} };
   }
 
   componentDidMount() {
@@ -31,40 +30,45 @@ export default class VideoGrid extends Component<VideoGridProps, VideoGridState>
       video: true,
       audio: true
     }).then(stream => {
-      this.addVideoStream(stream)
+      this.addVideoStream(0, stream);
       this.myPeer.on('call', (call: any) => {
-        call.answer(stream)
+        call.answer(stream);
         call.on('stream', (userVideoStream: any) => {
-            this.addVideoStream(userVideoStream)
+          this.addVideoStream(Math.floor(Math.random() * 1000), userVideoStream);
         })
       })
       this.socket.on('user-connected', (userId: any) => {
-        console.log(userId, "connected")
-        this.connectToNewUser(userId, stream)
+        console.log(userId, "connected");
+        this.connectToNewUser(userId, stream);
       })
     })
     this.socket.on('user-disconnected', (userId: any) => {
-      console.log(userId, "disconnected")
-      if (this.peers[userId]) this.peers[userId].close()
+      console.log(userId, "disconnected");
+      if (this.peers[userId]) this.peers[userId].close();
     })
   
     this.myPeer.on('open', (id: any) => {
-      this.socket.emit('join-room', ROOM_ID, id)
+      console.log("Joined room", ROOM_ID, id);
+      this.socket.emit('join-room', ROOM_ID, id);
     })
   }
 
-  addVideoStream = (stream: any) => {
-    const { videoGrid } = this.state;
+  addVideoStream = (userId: any, stream: any) => {
+    var grid = this.state.videoGrid;
     //var video = <video className="video-element" src={stream} autoPlay preload="metadata"></video>
-    var video = <Video mediaStream={stream}/>
+    var video = <Video mediaStream={stream} />
+    grid[`${userId}`] = video;
+    console.log("ADDED", userId, "to room")
     this.setState({
-      videoGrid: [...videoGrid, video]
+      videoGrid: grid
     });
   }
 
-  removeVideoStream = (index: number) => {
+  removeVideoStream = (userId: any) => {
     var grid = this.state.videoGrid;
-    delete grid[index];
+    console.log(grid)
+    delete grid[`${userId}`];
+    console.log("REMOVED", userId, "from room", grid)
     this.setState({
       videoGrid: grid
     });
@@ -72,12 +76,11 @@ export default class VideoGrid extends Component<VideoGridProps, VideoGridState>
 
   connectToNewUser = (userId: any, stream: any) => {
     const call = this.myPeer.call(userId, stream)
-    const videoIndex = this.state.videoGrid.length;
     call.on('stream', (userVideoStream: any) => {
-      this.addVideoStream(userVideoStream);
+      this.addVideoStream(userId, userVideoStream);
     })
     call.on('close', () => {
-      this.removeVideoStream(videoIndex);
+      this.removeVideoStream(userId);
     })
     this.peers[userId] = call
   }
@@ -86,10 +89,10 @@ export default class VideoGrid extends Component<VideoGridProps, VideoGridState>
     const { videoGrid } = this.state;
     //console.log(videoGrid)
     return (
-      <div className="video-grid">
-        {videoGrid.map((video, i) => 
+      <div className="video-grid w3-padding-large">
+        {Object.keys(videoGrid).map((video, i) => 
           <div key={i}>
-            {video}
+            {videoGrid[video]}
           </div>
         )}
       </div>

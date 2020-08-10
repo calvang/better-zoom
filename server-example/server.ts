@@ -1,31 +1,25 @@
-import { SSL_OP_NO_TICKET } from 'constants';
-// import * as express from 'express';
-const express = require('express')
+//import { SSL_OP_NO_TICKET } from 'constants';
+import express from 'express';
+
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
 
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
-// app.set('view engine', 'html');
-// app.use(express.static('public'));
-//app.use('/assets', express.static(__dirname + '/dist'));
 
-app.get('/', (req: any, res: any) => {
-    console.log("Redirecting...")
-    const newRoomId = uuidV4();
-    res.redirect(`/${newRoomId}`);
-    res.send(newRoomId);
+app.get('/',(req, res) => {
+    res.redirect(`/${uuidV4()}`);
 })
 
-app.get('/:room', (req: any, res: any) => {
-    console.log("Rendering room...")
+app.get('/:room', (req, res) => {
     res.render('room', { roomId: req.params.room });
 })
 
 io.on('connection', function(socket: any) {
     socket.on('join-room', function(roomId: any, userId: any) {
-        console.log("Connecting to", roomId, userId)
+        console.log(roomId, userId)
         socket.join(roomId);
         socket.to(roomId).broadcast.emit('user-connected', userId);
         socket.on('disconnect', () => {
@@ -33,5 +27,5 @@ io.on('connection', function(socket: any) {
         })
     })
 })
- 
-server.listen(5000)
+
+server.listen(3000)
