@@ -13,7 +13,7 @@ export default function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/room/:roomId" render={(props: any) =>
+        <Route path="/room/:roomId?" render={(props: any) =>
           <WebRTC {...props} username={username} />}>
         </Route>
         <Route path="/" render={(props: any) =>

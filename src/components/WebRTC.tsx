@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router';
+import Logo from './Logo';
 import Menu from './Menu';
 import Dock from './Dock';
 import VideoGrid from './Video/VideoGrid';
 import Video from './Video/Video';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
+import { v4 as uuidV4 } from 'uuid';
 
 interface MatchParams {
   roomId: string
@@ -39,8 +41,16 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   constructor(props: WebRTCProps) {
     super(props);
     this.socket = io.connect(API_URL);
+    var roomId: string;
+    if (this.props.match.params.roomId) roomId = this.props.match.params.roomId;
+    else {
+      // handle random room generation if someone navigates to /room
+      roomId = uuidV4();
+      var newPath = `/room/${roomId}`
+      props.history.push(newPath);
+    }
     this.state = {
-      ROOM_ID: this.props.match.params.roomId,
+      ROOM_ID: roomId,
       videoGrid: {},
       volume: 1,
       audioOff: false,
@@ -191,6 +201,7 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
     //console.log(videoGrid)
     return (
       <>
+        <Logo />
         <Menu />
         <VideoGrid videoGrid={videoGrid} />
         <Dock

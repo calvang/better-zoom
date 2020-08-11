@@ -19,7 +19,44 @@
   border-radius: 10px;
 }
 
-.menu-button {
+.logo {
+  background: white;
+  color:  midnightblue;
+  border-radius: 10px;
+  top: 5px;
+  left: 5px;
+  width: fit-content;
+  font-size: 25px;
+  padding: 10px;
+}
+
+.menu {
+  background: white;
+  color: midnightblue;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  position: fixed!important;
+  width: 33%;
+  max-width: 400px;
+  min-width: 250px;
+  height: 100%;
+  z-index: 2;
+  align-items: right;
+  align-content: right;
+}
+
+.menu-bar {
+  right: 0;
+}
+
+.menu-bar-button {
+  border-radius: 10px;
+}
+
+.menu-toggle {
   background: white;
   color:  midnightblue;
   border-radius: 10px;
@@ -85,8 +122,8 @@
   align-content: center;
   flex-wrap: wrap;
   background-color: midnightblue;
-
   height: 100vh;
+  width: auto;
   z-index: 2;
 }
 

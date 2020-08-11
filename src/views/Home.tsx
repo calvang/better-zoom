@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { v4 as uuidV4 } from 'uuid';
 
 interface HomeProps extends RouteComponentProps {
   updateUsername: any,
@@ -15,7 +16,9 @@ export default function Home(props: HomeProps) {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    var newPath = `/room/${roomId}`
+    var newRoom = roomId;
+    if (newRoom === '') newRoom = uuidV4();
+    var newPath = `/room/${newRoom}`
     props.history.push(newPath);
   }
 
@@ -29,10 +32,14 @@ export default function Home(props: HomeProps) {
           placeholder="Username" required name="Username"
           onChange={props.updateUsername} value={props.username}/></p>
         <p><input className="w3-input w3-padding-16" type="text"
-          placeholder="Room ID" required name="Room ID"
+          placeholder="Room ID"
           onChange={updateRoomId} value={roomId}/></p>
         <p>
-          <button className="w3-button w3-padding" type="submit">
+          <a rel="noopener noreferrer" target="_blank" href="https://github.com/calvang/better-zoom"
+            className="w3-button w3-padding menu-bar-button">
+            <i className="fa fa-github w3-xxlarge" ></i>
+          </a>
+          <button className="w3-button w3-padding menu-bar-button" type="submit">
             <i className="fa fa-sign-in w3-xxlarge"></i>
           </button>
         </p>

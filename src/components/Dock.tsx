@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import '../css/App.css';
 
 interface DockProps extends RouteComponentProps {
   toggleMute: any,
