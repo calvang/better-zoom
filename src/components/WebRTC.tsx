@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
+import { RouteComponentProps } from 'react-router';
 import Menu from './Menu';
 import Dock from './Dock';
 import VideoGrid from './Video/VideoGrid';
 import Video from './Video/Video';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
-import '../css/App.css';
 
-interface WebRTCProps { }
+interface MatchParams {
+  roomId: string
+}
+
+interface WebRTCProps extends RouteComponentProps<MatchParams> {
+  username: string
+}
+
 interface WebRTCState {
   videoGrid: any
 }
 
 //const ROOM_ID = window.ROOM_ID; //"<%= roomId%>";
-const ROOM_ID = "<%= roomId%>"
+//var ROOM_ID: string;
+const API_URL = "http://localhost:5000"
 
 export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   socket: any;
@@ -25,11 +33,16 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   peers: any = {};
   constructor(props: WebRTCProps) {
     super(props);
-    this.socket = io.connect('localhost:5000');
-    this.state = { videoGrid: {} };
+    this.socket = io.connect(API_URL);
+    this.state = {
+      videoGrid: {}
+    };
   }
 
   componentDidMount() {
+    const ROOM_ID = this.props.match.params.roomId;
+    const { username } = this.props;
+    console.log("ROOM_ID and USERNAME:", ROOM_ID, username)
     navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true
@@ -92,6 +105,11 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
       this.removeVideoStream(userId);
     })
     this.peers[userId] = call
+  }
+
+  handleMessageChanged = (e: any) => {
+    e.preventDefault();
+    
   }
 
   render() {

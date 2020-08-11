@@ -1,5 +1,4 @@
 import React, { Component, createRef } from 'react';
-import '../../css/App.css';
 
 interface VideoProps { 
   mediaStream: any
