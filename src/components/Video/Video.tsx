@@ -1,13 +1,15 @@
 import React, { Component, createRef } from 'react';
 
 interface VideoProps { 
-  mediaStream: any
+  mediaStream: any,
+  volume: number
 }
 
 interface VideoState {}
 
 export default class Video extends Component<VideoProps, VideoState> {
   videoRef: any;
+  audio: any;
   constructor(props: VideoProps) {
     super(props);
     this.videoRef = createRef();
@@ -25,6 +27,10 @@ export default class Video extends Component<VideoProps, VideoState> {
     if (mediaStream) this.videoRef.current.srcObject = mediaStream;
   }
   
+  componentDidUpdate() {
+    this.videoRef.volume = this.props.volume;
+  }
+
   render() {
     //const { mediaStream } = this.props;
     //console.log('mediaStream: ', mediaStream);

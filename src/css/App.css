@@ -44,6 +44,33 @@
   border-radius: 10px;
 }
 
+.invite {
+  /* display: inline-block; */
+  position: fixed;
+  align-items: center;
+  bottom: 80px;
+  left: 50%;
+  width: fit-content;
+  transform: translate(-50%, 0);
+}
+
+.invite-bar {
+  display: inline-block;
+  background: white;
+  color:  midnightblue;
+  border-radius: 10px;
+}
+
+.invite-input {
+  background-color: lightcyan;
+  border-radius: 10px;
+}
+
+.invite-button {
+  background-color: white;
+  border-radius: 10px;
+}
+
 .video-grid {
   display: grid;
   grid-template-columns: repeat(Auto-fill, 480px);
