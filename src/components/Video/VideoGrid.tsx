@@ -11,7 +11,7 @@ export default function VideoGrid(props: VideoGridProps) {
     <div className="video-flex w3-padding-large">
       {Object.keys(videoGrid).map((video, i) => 
         <div key={i}>
-          {videoGrid[video]}
+          {videoGrid[video].video}
         </div>
       )}
     </div>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '../views/Home';
-import WebRTC from './WebRTC';
+import Help from '../views/Help';
+import Room from '../views/Room';
 
 export default function Routes() {
   const [username, setUser] = useState('');
@@ -14,8 +15,9 @@ export default function Routes() {
     <BrowserRouter>
       <Switch>
         <Route path="/room/:roomId?" render={(props: any) =>
-          <WebRTC {...props} username={username} />}>
+          <Room {...props} username={username} />}>
         </Route>
+        <Route path="/help" component={Help}></Route>
         <Route path="/" render={(props: any) =>
           <Home {...props} updateUsername={updateUsername} username={username} />}>
         </Route>
