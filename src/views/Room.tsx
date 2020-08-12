@@ -95,6 +95,7 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
 
   enterRoom = () => {
     const { ROOM_ID, username } = this.state;
+    var currentUsers: any[] = [];
     console.log("ROOM_ID and USERNAME:", ROOM_ID, username)
     navigator.mediaDevices.getUserMedia({
       video: true,
@@ -104,12 +105,12 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
       this.addVideoStream(this.myPeer.id, username, stream);
       this.myPeer.on('call', (call: any) => {
         call.answer(stream);
-        var clients = this.socket.sockets.adapter.rooms[ROOM_ID].sockets;
+        // var clients = this.socket.sockets.adapter.rooms[ROOM_ID].sockets;
         call.on('stream', (userVideoStream: any) => {
           let callerId = call.peer;
           // find the matching username for the ID
           var callerUsername;
-          for (var clientId in clients) {
+          for (var clientId in currentUsers) {
             let socketId = this.socket.sockets.connected[clientId].userId;
             if (socketId === callerId)
               callerUsername = this.socket.sockets.connected[clientId].username;
@@ -130,6 +131,10 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
     this.myPeer.on('open', (id: any) => {
       console.log("Joined room", ROOM_ID, id, username);
       this.socket.emit('join-room', ROOM_ID, id, username);
+    })
+    this.socket.on('current-users', (users: any) => {
+      console.log(users)
+      currentUsers = users;
     })
   }
 

@@ -27,9 +27,9 @@ export default class Video extends Component<VideoProps, VideoState> {
     if (mediaStream) this.videoRef.current.srcObject = mediaStream;
   }
   
-  componentDidUpdate() {
-    this.videoRef.volume = this.props.volume;
-  }
+  // componentDidUpdate() {
+  //   this.videoRef.volume = this.props.volume;
+  // }
 
   render() {
     //const { mediaStream } = this.props;

@@ -30,6 +30,7 @@ io.on('connection', function(socket: any) {
     socket.on('join-room', function(roomId: any, userId: any, username: string) {
         console.log("Connecting to", roomId, userId, username)
         socket.join(roomId);
+        socket.broadcast.to(userId).emit('current-users', io.sockets.adapter.rooms[roomId].sockets);
         socket.to(roomId).broadcast.emit('user-connected', userId, username);
         socket.on('disconnect', () => {
             socket.to(roomId).broadcast.emit('user-disconnected', userId, username);
