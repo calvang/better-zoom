@@ -28,6 +28,10 @@ export default function Login(props: LoginProps) {
             className="w3-button w3-padding menu-bar-button">
             <i className="fa fa-github w3-xxlarge" ></i>
           </a>
+          <a href="/"
+            className="w3-button w3-padding menu-bar-button">
+            <i className="fa fa-home w3-xxlarge" ></i>
+          </a>
           <button className="w3-button w3-padding menu-bar-button" type="submit">
             <i className="fa fa-sign-in w3-xxlarge"></i>
           </button>

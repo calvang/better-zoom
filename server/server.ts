@@ -26,15 +26,21 @@ app.get('/:room', (req: any, res: any) => {
     res.render('room', { roomId: req.params.room });
 })
 
-io.on('connection', function(socket: any) {
-    socket.on('join-room', function(roomId: any, userId: any, username: string) {
-        console.log("Connecting to", roomId, userId, username)
+io.on('connection', (socket: any) => {
+    socket.on('join-room', (roomId: string, userId: string, username: string) => {
+        console.log("Connecting to", roomId, userId, username);
         socket.join(roomId);
+        // send list of current users to connected user
         socket.broadcast.to(userId).emit('current-users', io.sockets.adapter.rooms[roomId].sockets);
+        // handle connections and disconnections
         socket.to(roomId).broadcast.emit('user-connected', userId, username);
         socket.on('disconnect', () => {
-            socket.to(roomId).broadcast.emit('user-disconnected', userId, username);
+            socket.to(roomId).broadcast.emit('user-disconnected', userId);
         })
+    })
+    socket.on('message-sent', (roomId: string, userId: string, username: string, message: string) => {
+        console.log("New message sent by", username, userId, "to room", roomId);
+        socket.to(roomId).broadcast.emit('message-recieved', userId, username, message);
     })
 })
  

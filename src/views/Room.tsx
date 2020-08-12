@@ -28,8 +28,6 @@ interface WebRTCState {
   isLoggedIn: boolean
 }
 
-//const ROOM_ID = window.ROOM_ID; //"<%= roomId%>";
-//var ROOM_ID: string;
 const API_URL = "http://localhost:5000"
 
 export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
@@ -89,6 +87,8 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   }
 
   componentWillUnmount() {
+    // const { ROOM_ID, username } = this.state;
+    // this.socket.emit('disconnect', ROOM_ID, this.myPeer.id, username);
     this.myPeer.disconnect();
     this.socket.disconnect();
   }
@@ -118,17 +118,17 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
           this.addVideoStream(callerId, callerUsername, userVideoStream);
         })
       })
-      this.socket.on('user-connected', (userId: any, username: string) => {
+      this.socket.on('user-connected', (userId: string, name: string) => {
         console.log(userId, "connected");
-        this.connectToNewUser(userId, username, stream);
+        this.connectToNewUser(userId, name, stream);
       })
     })
-    this.socket.on('user-disconnected', (userId: any, username: string) => {
+    this.socket.on('user-disconnected', (userId: string) => {
       console.log(userId, "disconnected");
       if (this.peers[userId]) this.peers[userId].close();
     })
 
-    this.myPeer.on('open', (id: any) => {
+    this.myPeer.on('open', (id: string) => {
       console.log("Joined room", ROOM_ID, id, username);
       this.socket.emit('join-room', ROOM_ID, id, username);
     })
@@ -136,6 +136,9 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
       console.log(users)
       currentUsers = users;
     })
+    // this.socket.on('message-recieved', (userId: string, name: string) => {
+
+    // })
   }
 
   addVideoStream = (userId: any, username: any, stream: any) => {
@@ -242,7 +245,13 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
         {isLoggedIn ?
           <>
             <Logo />
-            <Menu />
+            <Menu
+              roomId={ROOM_ID}
+              userId={this.myPeer.id}
+              username={username}
+              users={videoGrid}
+              socket={this.socket}
+            />
             <VideoGrid videoGrid={videoGrid} />
             <Dock
               toggleMute={toggleMute.bind(this)}
