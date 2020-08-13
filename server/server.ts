@@ -43,5 +43,6 @@ io.on('connection', (socket: any) => {
         socket.to(roomId).broadcast.emit('message-recieved', userId, username, message);
     })
 })
- 
-server.listen(5000)
+
+app.listen(process.env.PORT || 3000)
+// server.listen(5000)

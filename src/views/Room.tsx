@@ -9,6 +9,7 @@ import Video from '../components/Video/Video';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
 import { v4 as uuidV4 } from 'uuid';
+import API from '../api.json';
 
 interface MatchParams {
   roomId: string
@@ -28,12 +29,13 @@ interface WebRTCState {
   isLoggedIn: boolean
 }
 
-const API_URL = "http://localhost:5000"
+const API_URL = `${API.host}:5000`;
+console.log(API_URL)
 
 export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   socket: any;
   myPeer = new Peer(undefined, {
-    host: 'localhost',
+    host: API.host,
     port: 3001,
     debug: 1
   });
