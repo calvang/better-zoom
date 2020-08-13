@@ -29,16 +29,17 @@ interface WebRTCState {
   isLoggedIn: boolean
 }
 
-var API_URL: string, APP_URL: string, thisPeer: any;
+var API_URL: string, APP_URL: string, thisPeer: any, secure: boolean;
 if (process.env.NODE_ENV === "production") {
   console.log("prod", process.env.PORT)
   API_URL = `https://${API.host}:5000`;
   APP_URL = `https://${API.host}:5000`;
   thisPeer = new Peer(undefined, {
-    // secure: true,
+    secure: true,
     host: API.host,
     port: 9000
   });
+  secure = true;
 }
 else {
   console.log("dev")
@@ -48,6 +49,7 @@ else {
     host: "localhost",
     port: 9000
   });
+  secure = false;
 }
 
 export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
@@ -57,7 +59,7 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   myStream: any;
   constructor(props: WebRTCProps) {
     super(props);
-    this.socket = io.connect(API_URL);
+    this.socket = io.connect(API_URL, { secure: secure });
     var roomId: string;
     var isLoggedIn = false;
     // check for room ID and username
