@@ -2,7 +2,7 @@ import { SSL_OP_NO_TICKET } from 'constants';
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const server = require('http').Server(app);
+const server = require('https').Server(app);
 const io = require('socket.io')(server);
 const path = require('path')
 const port = process.env.PORT || 5000
