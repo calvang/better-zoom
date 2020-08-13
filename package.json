@@ -42,7 +42,7 @@
     "client-dev": "yarn start",
     "server-dev": "yarn watch",
     "server": "yarn watch-node",
-    "peerjs": "peerjs --port 443 --key peerjs --path /",
+    "peerjs": "peerjs --port 9000 --key peerjs --path /",
     "peerjs-dev": "peerjs --port 9000 --key peerjs --path /",
     "dev": "NPM_CONFIG_PRODUCTION=false concurrently \"yarn run client-dev\" \"yarn run server-dev\" \"yarn run peerjs-dev\"",
     "pilot": "NPM_CONFIG_PRODUCTION=true concurrently \"yarn run server\" \"yarn run peerjs-dev\"",

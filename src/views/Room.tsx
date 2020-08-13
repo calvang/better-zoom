@@ -35,9 +35,9 @@ if (process.env.NODE_ENV === "production") {
   API_URL = `https://${API.host}:5000`;
   APP_URL = `https://${API.host}:5000`;
   thisPeer = new Peer(undefined, {
-    secure: true,
+    // secure: true,
     host: API.host,
-    port: 443
+    port: 9000
   });
 }
 else {
@@ -45,7 +45,6 @@ else {
   API_URL = `http://localhost:5000`;
   APP_URL = `https://localhost:3000`;
   thisPeer = new Peer(undefined, {
-    secure: true,
     host: "localhost",
     port: 9000
   });
