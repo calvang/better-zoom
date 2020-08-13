@@ -2,8 +2,9 @@ import { SSL_OP_NO_TICKET } from 'constants';
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const server = require('https').Server(app);
-const io = require('socket.io')(server);
+const server = require('http').Server(app);
+const SOCKET = require('socket.io');
+const io = SOCKET(server);
 const path = require('path')
 const port = process.env.PORT || 5000
 
@@ -32,18 +33,6 @@ app.use(function(req: any, res: any, next: any) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
-// app.get('/', (req: any, res: any) => {
-//     console.log("Redirecting...")
-//     const newRoomId = uuidV4();
-//     //res.redirect(`/${newRoomId}`);
-//     res.send({ roomId: `${newRoomId}` });
-// })
-
-// app.get('/:room', (req: any, res: any) => {
-//     console.log("Rendering room...")
-//     res.render('room', { roomId: req.params.room });
-// })
 
 io.on('connection', (socket: any) => {
     socket.on('join-room', (roomId: string, userId: string, username: string) => {

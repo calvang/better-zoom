@@ -32,8 +32,8 @@ interface WebRTCState {
 var API_URL: string, APP_URL: string, thisPeer: any, secure: boolean;
 if (process.env.NODE_ENV === "production") {
   console.log("prod", process.env.PORT)
-  API_URL = `https://${API.host}:5000`;
-  APP_URL = `https://${API.host}:5000`;
+  API_URL = `https://${API.host}`;
+  APP_URL = `https://${API.host}`;
   thisPeer = new Peer(undefined, {
     secure: true,
     host: API.host,
@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === "production") {
 else {
   console.log("dev")
   API_URL = `http://localhost:5000`;
-  APP_URL = `https://localhost:3000`;
+  APP_URL = `http://localhost:3000`;
   thisPeer = new Peer(undefined, {
     host: "localhost",
     port: 9000
