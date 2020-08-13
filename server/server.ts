@@ -1,30 +1,49 @@
 import { SSL_OP_NO_TICKET } from 'constants';
+import { servicesVersion } from 'typescript';
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
+const path = require('path')
+
+//app.use(express.static(path.join(__dirname, '../build')));
+
+// production mode
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../build')));
+    app.get('*', (req: any, res: any) => {
+        res.sendfile(path.join(__dirname, '/../build/index.html'));
+    })
+}
+
+// dev mode
+else {
+    app.get('*', (req: any, res: any) => {
+        res.sendFile(path.join(__dirname, '/../public/index.html'));
+    })
+}
 
 app.use(cors());
-app.use(express.static('public'));
+//app.use(express.static('public'));
 app.use(function(req: any, res: any, next: any) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
-app.get('/', (req: any, res: any) => {
-    console.log("Redirecting...")
-    const newRoomId = uuidV4();
-    //res.redirect(`/${newRoomId}`);
-    res.send({ roomId: `${newRoomId}` });
-})
+// app.get('/', (req: any, res: any) => {
+//     console.log("Redirecting...")
+//     const newRoomId = uuidV4();
+//     //res.redirect(`/${newRoomId}`);
+//     res.send({ roomId: `${newRoomId}` });
+// })
 
-app.get('/:room', (req: any, res: any) => {
-    console.log("Rendering room...")
-    res.render('room', { roomId: req.params.room });
-})
+// app.get('/:room', (req: any, res: any) => {
+//     console.log("Rendering room...")
+//     res.render('room', { roomId: req.params.room });
+// })
 
 io.on('connection', (socket: any) => {
     socket.on('join-room', (roomId: string, userId: string, username: string) => {
@@ -44,5 +63,9 @@ io.on('connection', (socket: any) => {
     })
 })
 
-app.listen(process.env.PORT || 3000)
-// server.listen(5000)
+//app.listen(5000)
+// if (process.env.NODE_ENV === 'production') 
+//     server.listen(5000)
+// else 
+//     server.listen(5000)
+server.listen(5000)
