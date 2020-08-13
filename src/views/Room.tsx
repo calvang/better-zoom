@@ -29,25 +29,31 @@ interface WebRTCState {
   isLoggedIn: boolean
 }
 
-var API_URL: string, APP_URL: string;
+var API_URL: string, APP_URL: string, thisPeer: any;
 if (process.env.NODE_ENV === "production") {
   console.log("prod", process.env.PORT)
   API_URL = `${API.host}:5000`;
   APP_URL = `${API.host}:5000`;
+  thisPeer = new Peer(undefined, {
+    secure: true,
+    host: API.host,
+    port: 443
+  });
 }
 else {
   console.log("dev")
   API_URL = `${API.host}:5000`;
   APP_URL = `${API.host}:3000`;
+  thisPeer = new Peer(undefined, {
+    secure: true,
+    host: API.host,
+    port: 9000
+  });
 }
 
 export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   socket: any;
-  myPeer = new Peer(undefined, {
-    secure: true,
-    host: API.host,
-    port: 443
-  });
+  myPeer = thisPeer;
   peers: any = {};
   myStream: any;
   constructor(props: WebRTCProps) {
