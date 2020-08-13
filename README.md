@@ -2,6 +2,8 @@
 
 A WebRTC video chat and messaging web application that prioritizes anonymity and simplicity.
 
+![img](images/example.png)
+
 ## Description
 
 This web application doesn't require any user credentials and allows creation of arbitrary usernames and room ID's for convenience. Users can create their own room ID's and share them, which allows complete freedom for using the platform.
