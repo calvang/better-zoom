@@ -42,6 +42,8 @@ After logging in and initializing Heroku for the app, you can test a local deplo
 
 `yarn test-heroku`
 
+Before deploying, place the URL of your Heroku app in /src/api.json so that socket.io and peerjs carry over functionality.
+
 To deploy, run this command to push to the Heroku branch: 
 
 `yarn deploy-heroku`
