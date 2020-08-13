@@ -44,9 +44,9 @@ else {
 export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   socket: any;
   myPeer = new Peer(undefined, {
+    secure: true,
     host: API.host,
-    port: 3001,
-    debug: 1
+    port: 443
   });
   peers: any = {};
   myStream: any;
