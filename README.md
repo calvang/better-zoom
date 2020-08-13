@@ -42,6 +42,6 @@ After logging in and initializing Heroku for the app, you can test a local deplo
 
 `yarn test-heroku`
 
-To deploy, run this command to build and push to the Heroku branch: 
+To deploy, run this command to push to the Heroku branch: 
 
-`yarn deploy`
+`yarn deploy-heroku`
