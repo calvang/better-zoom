@@ -13,5 +13,7 @@ This web application doesn't require any user credentials and allows creation of
 To run this project from the source code, execute these three commands in order:
 
 `peerjs --port 3001`
+
 `yarn run watch`
+
 `yarn start`
