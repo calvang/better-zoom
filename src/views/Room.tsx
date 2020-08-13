@@ -236,6 +236,15 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
     }
   }
 
+  // sendMessage = (currentMessage: string) => {
+  //   const { ROOM_ID, username } = this.state;
+  //   console.log("Sending message...")
+  //   this.socket.emit('message-sent', ROOM_ID, this.myPeer.id, username, currentMessage);
+  //   console.log("Setting state")
+  //   this.setState({ messages: [...messages, currentMessage] })
+  //   console.log("Done")
+  // }
+
   render() {
     const { ROOM_ID, username, videoGrid, volume, audioOff, videoOff, isLoggedIn } = this.state;
     const { updateUsername, signIn, increaseVolume, decreaseVolume, toggleMute, toggleVideo } = this;

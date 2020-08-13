@@ -70,7 +70,7 @@ export default class Menu extends Component<MenuProps, MenuState> {
                     <i className="fa fa-long-arrow-right fa-fw w3-xlarge"></i>
                 </button>
               </div>
-              <hr style={{ marginTop: "-2px" }} />
+              {/* <hr style={{ marginTop: "-2px" }} /> */}
               {showChat ? 
                 <Chat
                   roomId={roomId}
@@ -82,7 +82,7 @@ export default class Menu extends Component<MenuProps, MenuState> {
               }
             </div>
           </div> :
-          <div style={{ zIndex: 3 }}>
+          <div>
             <nav className="w3-top menu-toggle w3-hover-opacity-on"
               style={{ width: "auto" }}
               id="mySidebar">

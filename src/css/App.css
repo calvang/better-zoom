@@ -65,14 +65,64 @@
   right: 5px;
 }
 
+.chat-block {
+  background: white;
+  color: midnightblue;
+  border-top: 1px solid lightgray;
+  margin-top: -2px;
+  border-bottom-left-radius: 10px;
+}
+
+.message-username {
+  padding-left: 2px;
+  padding-right: 2px;
+  font-size: 14px;
+  color: grey;
+}
+
+.my-message {
+  text-align: right;
+  margin-right: 10px;
+  margin-left: 80px;
+  float: right;
+}
+
+.other-message {
+  text-align: left;
+  margin-left: 10px;
+  margin-right: 80px;
+  float: left;
+}
+
+.message-body {
+  text-align: left;
+  margin-bottom: 0px;
+  border-radius: 20px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: fit-content;
+}
+
+.chat-history {
+  display: flex;
+  color: black;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  height: calc(100vh - 99px);
+}
+
 .message-form {
   display: flex;
   flex-direction: row-reverse;
+  padding-top: 11px;
+  border-bottom-left-radius: 10px;
+  background: transparent;
   padding-right: 12px;
 }
 
 .message-form button {
-  background: lightblue;
+  background: transparent;
   color: midnightblue;
   border-radius: 5px;
   border: none;
@@ -80,13 +130,28 @@
 }
 
 .message-form button:hover {
-  background: rgb(130, 175, 190);
+  background: lightblue;
   color: midnightblue;
   border-radius: 5px;
   border: none;
 }
+
+.message-form input {
+  color: midnightblue;
+  border-radius: 50vh;
+  border: 1px solid lightgray;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  margin-left: 10px;
+}
+
+.message-form input:focus {
+  outline: none;
+}
+
 .dock {
-  /* display: inline-block; */
   position: fixed;
   align-items: center;
   bottom: 20px;
@@ -97,7 +162,7 @@
 
 .dock-bar {
   display: inline-block;
-  background: white;
+  background: rgb(243, 243, 243);
   color:  midnightblue;
   border-radius: 10px;
 }
@@ -172,41 +237,25 @@
   object-fit: cover;
 }
 
-.App {
-  text-align: center;
+/* ::-webkit-scrollbar {
+  width: 5px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px black; 
+  border-radius: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+::-webkit-scrollbar-thumb {
+  background: lightgrey; 
+  border-radius: 2px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+::-webkit-scrollbar-thumb:hover {
+  background: grey; 
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: midnightblue lightgrey;
+} */
