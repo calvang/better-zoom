@@ -35,7 +35,6 @@ if (process.env.NODE_ENV === "production") {
   API_URL = `https://${API.host}`;
   APP_URL = `https://${API.host}`;
   thisPeer = new Peer(undefined, {
-    secure: true,
     host: API.host,
     port: 9000
   });
