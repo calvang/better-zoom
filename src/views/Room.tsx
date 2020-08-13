@@ -29,7 +29,17 @@ interface WebRTCState {
   isLoggedIn: boolean
 }
 
-const API_URL = `${API.host}:5000`;
+var API_URL: string, APP_URL: string;
+if (process.env.NODE_ENV === "production") {
+  console.log("prod", process.env.PORT)
+  API_URL = `${API.host}:5000`;
+  APP_URL = `${API.host}:5000`;
+}
+else {
+  console.log("dev")
+  API_URL = `${API.host}:5000`;
+  APP_URL = `${API.host}:3000`;
+}
 
 export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
   socket: any;
@@ -262,7 +272,7 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
               volume={volume}
               isMuted={audioOff}
               isCamOn={videoOff}
-              roomLink={`http://localhost:3000/:${ROOM_ID}`}
+              roomLink={`${APP_URL}/:${ROOM_ID}`}
             />
           </>
           : <PopupLogin updateUsername={updateUsername} signIn={signIn} username={username} />

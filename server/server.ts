@@ -7,7 +7,9 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
 const path = require('path')
+const port = process.env.PORT || 5000
 
+console.log(port)
 //app.use(express.static(path.join(__dirname, '../build')));
 
 // production mode
@@ -63,9 +65,7 @@ io.on('connection', (socket: any) => {
     })
 })
 
-//app.listen(5000)
-// if (process.env.NODE_ENV === 'production') 
-//     server.listen(5000)
-// else 
-//     server.listen(5000)
-server.listen(5000)
+if (process.env.NODE_ENV === 'production') 
+    server.listen(port)
+else 
+    server.listen(5000)
