@@ -10,6 +10,8 @@ This web application doesn't require any user credentials and allows creation of
 
 This application is hosted on Heroku here: https://shrouded-crag-20600.herokuapp.com/
 
+This project is still under development and is not 100% compatibly with different browsers and devices. Updates will come soon!
+
 ## For Developers
 
 ### Local Development
