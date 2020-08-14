@@ -50,6 +50,10 @@ To deploy, run this command to push to the Heroku branch:
 
 `yarn deploy-heroku`
 
-If you want to use a custom peerserver of your own, you can add follow these instructions:
+To use a custom peerserver of your own, you can add follow these instructions:
 
 https://github.com/peers/peerjs-server
+
+Check out my custom peerserver that I used for this project!
+
+https://github.com/calvang/custom-peerserver
