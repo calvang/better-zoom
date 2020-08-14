@@ -47,8 +47,7 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
       this.APP_URL = `https://${API.host}`;
       this.myPeer = new Peer(undefined, {
         host: API.host,
-        port: 9000,
-        key: "peerjs"
+        port: 9000
       });
       this.isSecure = true;
     }
