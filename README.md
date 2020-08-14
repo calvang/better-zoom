@@ -22,13 +22,13 @@ To run this locally from the source code, run:
 
 If you want to run all the processes separately, execute these three commands in order:
 
-`peerjs --port 3001`
+`peerjs --port 9000`
 
 `yarn run watch`
 
 `yarn start`
 
-To test a production deployment, run:
+To test a production deployment to localhost:5000, run:
 
 `yarn test-deploy`
 
@@ -38,7 +38,7 @@ Follow these steps to initialize and deploy a Heroku app:
 
 https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true
 
-After logging in and initializing Heroku for the app, you can test a local deployment using: 
+After logging in and initializing Heroku for the app, you can test a local deployment to port 5000 using: 
 
 `yarn test-heroku`
 

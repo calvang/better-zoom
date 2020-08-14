@@ -3,10 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const server = require('http').Server(app);
-const SOCKET = require('socket.io');
-const io = SOCKET(server);
+const io = require('socket.io')(server);
 const path = require('path')
 const port = process.env.PORT || 5000
+
+// const { PeerServer } = require('peer');
+// const peerServer = PeerServer({ port: 9000, path: '/' });
 
 console.log(port)
 //app.use(express.static(path.join(__dirname, '../build')));
@@ -17,9 +19,7 @@ if (process.env.NODE_ENV === 'production') {
     app.get('*', (req: any, res: any) => {
         res.sendfile(path.join(__dirname, '/../build/index.html'));
     })
-}
-
-// dev mode
+}// dev mode
 else {
     app.get('*', (req: any, res: any) => {
         res.sendFile(path.join(__dirname, '/../public/index.html'));

@@ -44,25 +44,6 @@ class Dock extends Component<DockProps, DockState> {
     this.reloadPage();
   }
 
-  // toggleMuted = () => {
-  //   const { isMuted } = this.state;
-  //   const { decreaseVolume, increaseVolume, volume } = this.props;
-  //   if (isMuted) {
-  //     this.setState({ isMuted: false });
-  //     while (volume < 1) increaseVolume();
-  //   }
-  //   else {
-  //     this.setState({ isMuted: true });
-  //     while (volume > 0) decreaseVolume();
-  //   }
-  // }
-
-  // toggleCam = () => {
-  //   const { isCamOn } = this.state;
-  //   isCamOn ? this.setState({ isCamOn: false }) 
-  //   : this.setState({ isCamOn: true });
-  // }
-
   toggleVolume = () => {
     const { showVolume } = this.state;
     showVolume ? this.setState({ showVolume: false }) 
@@ -123,7 +104,7 @@ class Dock extends Component<DockProps, DockState> {
               {volumeIcon}
             </button>
             {showVolume ? 
-              <>
+              <div className="w3-animate-left">
                 <button className="w3-bar-item w3-button w3-padding"
                   onClick={decreaseVolume}>
                   <i className="fa fa-minus-circle fa-fw w3-xxlarge"></i>
@@ -132,7 +113,7 @@ class Dock extends Component<DockProps, DockState> {
                   onClick={increaseVolume}>
                   <i className="fa fa-plus-circle fa-fw w3-xxlarge"></i>
                 </button>  
-              </> : null
+              </div> : null
             }
           </div>
         </nav>
@@ -142,7 +123,7 @@ class Dock extends Component<DockProps, DockState> {
               <b className="w3-bar-item w3-padding">
                 Share this room:
               </b>
-              <input className="w3-bar-item invite-input" type="text"
+              <input className="w3-bar-item invite-input" type="text" readOnly
                   ref={(input) => this.input = input} value={roomLink} />
               <button className="w3-bar-item w3-button invite-button" 
                 onClick={this.copyInvite}>
