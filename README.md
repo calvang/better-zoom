@@ -8,6 +8,8 @@ A WebRTC video chat and messaging web application that prioritizes anonymity and
 
 This web application doesn't require any user credentials and allows creation of arbitrary usernames and room ID's for convenience. Users can create their own room ID's and share them, which allows complete freedom for using the platform.
 
+This application is hosted on Heroku here: https://shrouded-crag-20600.herokuapp.com/
+
 ## For Developers
 
 ### Local Development
@@ -47,3 +49,7 @@ Before deploying, place the URL of your Heroku app in /src/api.json so that sock
 To deploy, run this command to push to the Heroku branch: 
 
 `yarn deploy-heroku`
+
+If you want to use a custom peerserver of your own, you can add follow these instructions:
+
+https://github.com/peers/peerjs-server
