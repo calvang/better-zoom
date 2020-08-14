@@ -2,7 +2,8 @@ import React, { Component, createRef } from 'react';
 
 interface VideoProps { 
   mediaStream: any,
-  volume: number
+  volume: number,
+  muted: boolean
 }
 
 interface VideoState {}
@@ -32,17 +33,31 @@ export default class Video extends Component<VideoProps, VideoState> {
   // }
 
   render() {
-    //const { mediaStream } = this.props;
+    const { muted } = this.props;
     //console.log('mediaStream: ', mediaStream);
     return (
-      <video
-        className="video-flex-element"
-        autoPlay
-        // ref={mediaStream ? this.addMediaStream : null}
-        ref={this.videoRef}
-      >
-        <track default kind="captions" />
-      </video>
+      <>
+        {muted ? 
+          <video
+            className="video-flex-element"
+            autoPlay
+            muted
+            // ref={mediaStream ? this.addMediaStream : null}
+            ref={this.videoRef}
+          >
+            <track default kind="captions" />
+          </video>
+          :
+          <video
+            className="video-flex-element"
+            autoPlay
+            // ref={mediaStream ? this.addMediaStream : null}
+            ref={this.videoRef}
+          >
+            <track default kind="captions" />
+          </video>
+        }
+      </>
     );
   }
 };

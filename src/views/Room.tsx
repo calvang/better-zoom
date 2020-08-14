@@ -167,8 +167,11 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
 
   addVideoStream = (userId: any, username: any, stream: any) => {
     var grid = this.state.videoGrid;
-    //var video = <video className="video-element" src={stream} autoPlay preload="metadata"></video>
-    var video = <Video mediaStream={stream} volume={this.state.volume} />
+    var video: any;
+    if (userId === this.myPeer.id) 
+      video = <Video muted={true} mediaStream={stream} volume={this.state.volume} />
+    else 
+      video = <Video muted={false} mediaStream={stream} volume={this.state.volume} />
     var gridElement = {
       video: video,
       username: username
