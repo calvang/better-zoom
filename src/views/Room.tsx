@@ -46,8 +46,9 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
       this.API_URL = `https://${API.host}`;
       this.APP_URL = `https://${API.host}`;
       this.myPeer = new Peer(undefined, {
-        host: API.host,
-        port: 9000
+        host: API.peer,
+        path: "/better-zoom",
+        secure: true
       });
       this.isSecure = true;
     }
@@ -56,8 +57,9 @@ export default class WebRTC extends Component<WebRTCProps, WebRTCState> {
       this.API_URL = `http://localhost:5000`;
       this.APP_URL = `http://localhost:3000`;
       this.myPeer = new Peer(undefined, {
-        host: "localhost",
-        port: 9000
+        host: API.peer,
+        path: "/better-zoom",
+        secure: true
       });
       this.isSecure = false;
     }
